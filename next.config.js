@@ -15,6 +15,7 @@ const nextConfig = {
             pathname: '/s/files/1/0811/2072/3233/files/**',
           },
         ],
+        allowFutureImage: true,
       },
 }
 
