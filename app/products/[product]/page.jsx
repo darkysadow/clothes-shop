@@ -1,14 +1,10 @@
-'use client'
+import BuyMenu from "@/components/BuyMenu/BuyMenu";
 import { getProductById } from "@/lib/shopify";
-import { useParams } from "next/navigation"
-import { useState } from "react";
 
-async function Product() {
-    const params = useParams()
+export default async function Product({params}) {
     const productId = params.product
     const product = await getProductById(productId)
     const variants = product.variants.edges.map(variant => ({ ...variant.node }))
-    
     return (
         <div className="container mx-auto flex flex-col">
             <h1 className="font-medium text-3xl">{product.title}</h1>
@@ -19,13 +15,9 @@ async function Product() {
                 <div className="w-[48%] flex flex-col">
                     <h2 className="capitalize text-2xl mb-3">{product.tags.map(tag => tag)}</h2>
                     <div dangerouslySetInnerHTML={{ __html: product.descriptionHtml}}></div>
-
+                    <BuyMenu variants={variants} options={product.options}/>
                 </div>
             </div>
-
-
         </div>
     )
 }
-
-export default Product;
